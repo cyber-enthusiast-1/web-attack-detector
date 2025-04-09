@@ -172,3 +172,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore the Neural network model folder
+models/
+
+# Ignore the virtual-environment
+web.attack/
+
+
