@@ -174,7 +174,7 @@ cython_debug/
 .pypirc
 
 # Ignore the Neural network model folder
-models/
+web-attack/models/
 
 # Ignore the virtual-environment
 intrusion/
