@@ -41,39 +41,39 @@ def upload_data():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filepath)
         
-        # load the file uploaded
-        df = pd.read_csv(filepath)
+            # load the file uploaded
+            df = pd.read_csv(filepath)
 
-        # fill missing value with 0 value
-        df.fillna(0, inplace=True)
+            # fill missing value with 0 value
+            df.fillna(0, inplace=True)
 
-        if 'label' in df.columns:
-            df.drop(labels=['label'], axis=1, inplace=True)
+            if 'label' in df.columns:
+                df.drop(labels=['label'], axis=1, inplace=True)
 
-        # standardize the data
-        X_scaled = scaler.transform(df)
+            # standardize the data
+            X_scaled = scaler.transform(df)
 
-        # apply the PCA to the scaled data
-        X_pca = pca.fit_transform(X_scaled)
+            # apply the PCA to the scaled data
+            X_pca = pca.fit_transform(X_scaled)
 
-        # reshape the data before predicting to match the required shape in the model
-        X_lstm = np.reshape(X_pca, X_pca.shape[0], X_pca.shape[1], 1)
+            # reshape the data before predicting to match the required shape in the model
+            X_lstm = np.reshape(X_pca, X_pca.shape[0], X_pca.shape[1], 1)
 
-        # make predictions
-        label_predictions = model.predict(X_lstm)
-        predicted_classes = np.argmax(label_predictions)
-        
-        # define a list of all possible attacks the model predicts
-        labels = ['Benign', 'Web Attack - Brute Force', 'Web Attack - XSS', 'Web Attack - SQL Injection']
+            # make predictions
+            label_predictions = model.predict(X_lstm)
+            predicted_classes = np.argmax(label_predictions)
+            
+            # define a list of all possible attacks the model pedicts
+            labels = ['Benign', 'Web Attack - Brute Force', 'Web Attack - XSS', 'Web Attack - SQL Injection']
 
-        predicted_labels = [labels[i] for i in predicted_classes]
+            predicted_labels = [labels[i] for i in predicted_classes]
 
-        # add column prediction to the data
-        df['prediction'] = predicted_labels
+            # add column prediction to the data
+            df['prediction'] = predicted_labels
 
-        result_html = df[['prediction']].to_html(classes='table table-striped', index=False)
+            result_html = df[['prediction']].to_html(classes='table table-striped', index=False)
 
-        return render_template('upload.html', table=result_html)
+            return render_template('upload.html', table=result_html)
     
     return render_template('upload.html')
 
