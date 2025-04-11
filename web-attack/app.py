@@ -8,7 +8,7 @@ import numpy as np
 
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('APP_KEY')
+app.secret_key = '12345678908765432fdcb'
 UPLOAD_FOLDER = 'static/upload_data'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -55,10 +55,10 @@ def upload_data():
             if 'label' in df.columns:
                 df.drop(labels=['label'], axis=1, inplace=True)
 
-            missing = [col for col in expected_columns if col not in df.columns]
+            missing = [col for col in expected_columns.columns if col not in df.columns]
 
             if missing:
-                flash(f'The uploaded file is missing these columns: {missing}', 'danger')
+                flash(f'The uploaded file is missing these columns: {missing[:3]} and other. Download the sample template provided to see expected columns', 'danger')
                 return redirect(request.url)
 
             # standardize the data
@@ -90,7 +90,29 @@ def upload_data():
     
     return render_template('upload.html')
 
+# route for model information
+@app.route('/model')
+def model_info():
+    # model summary
+    model_details = {
+        "architecture": [
+            "Input → 78 features → StandardScaler",
+            "Principal Component Analysis → 22 features",
+            "Long-Short Term Memory layers",
+            "Dense output (4 classes)"
+        ],
+        "accuracy": "98.72%",
+        "loss_function": "sparse_categorical_crossentropy",
+        "optimizer": "adam",
+        "output_classes": ["Benign", "Web Attack - Brute Force", "Web Attack - XSS", "Web Attack - SQL Injection"],
+        "pca_components": 22,
+        "scaling": "StandardScaler"
+    }
+    return render_template('model_info.html', model=model_details)
 
+@app.route('/threat-statistic')
+def threat_summary():
+    return render_template('threat.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
