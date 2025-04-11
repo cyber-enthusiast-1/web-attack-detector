@@ -34,15 +34,20 @@ def upload_data():
     if request.method == 'POST':
         file = request.files['file']
         if file.filename == '':
-            flash('No file selected')
+            flash('No file selected', 'danger')
             return redirect(request.url)
         
         if file:
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filepath)
+
+            expected_columns = pd.read_csv('static/template.csv')
         
             # load the file uploaded
             df = pd.read_csv(filepath)
+
+            # rename the data columns for consistency with the trained model
+            df = df.rename(columns=rename_column)
 
             # fill missing value with 0 value
             df.fillna(0, inplace=True)
@@ -50,11 +55,19 @@ def upload_data():
             if 'label' in df.columns:
                 df.drop(labels=['label'], axis=1, inplace=True)
 
+            missing = [col for col in expected_columns if col not in df.columns]
+
+            if missing:
+                flash(f'The uploaded file is missing these columns: {missing}', 'danger')
+                return redirect(request.url)
+
             # standardize the data
             X_scaled = scaler.transform(df)
 
             # apply the PCA to the scaled data
             X_pca = pca.fit_transform(X_scaled)
+
+            flash(f"Data uploaded and transformed successfully! Shape: {X_pca.shape}", "success")
 
             # reshape the data before predicting to match the required shape in the model
             X_lstm = np.reshape(X_pca, X_pca.shape[0], X_pca.shape[1], 1)
