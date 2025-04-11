@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block title %}Model Information{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <h2 class="mt-2">Trained Model Information</h2>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Architecture</h4>
+                <ul>
+                    {% for layer in model.architecture %}
+                    <li>{{ layer }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h4>Model Performance</h4>
+                <p><strong>Accuracy:</strong> {{ model.accuracy }}</p>
+                <p><strong>Loss Function:</strong> {{ model.loss_function }}</p>
+                <p><strong>Optimizer:</strong> {{ model.optimizer }}</p>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Preprocessing</h4>
+                <p><strong>Scaling:</strong> {{ model.scaling }}</p>
+                <p><strong>Principal Component Analysis:</strong> {{ model.pca_components }}</p>
+
+                <h4>Classes</h4>
+                <ul>
+                {% for label in model.output_classes %}
+                    <li>{{ label }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        
+    </div>
+
+{% endblock %}
