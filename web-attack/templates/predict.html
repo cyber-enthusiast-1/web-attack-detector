@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+
+    <div class="container mt-3">
+
+        <h2 class="mb-2">Prediction Results</h2>
+        <hr>
+        <p class="text-muted">Below are the predicted threat types based on your uploaded network data.</p>
+
+        <div class="card shadow-sm p-4 mb-4">
+            {% if table %}
+                <div class="table-responsive">
+                    {{ table | safe }}
+                </div>
+            {% else %}
+                <p class="text-danger">No predictions available. Please upload and process data.</p>
+            {% endif %}
+        </div>
+
+        <div class="text-center">
+            <a href="{{ url_for('upload_data') }}" class="btn btn-outline-primary">Upload Another File</a>
+        </div>
+
+    </div>
+
+{% endblock %}
