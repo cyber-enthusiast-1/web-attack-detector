@@ -49,6 +49,9 @@ def upload_data():
             # rename the data columns for consistency with the trained model
             df = df.rename(columns=rename_column)
 
+            # replace infinite values with NaN
+            df.replace([np.inf, -np.inf], np.nan, inplace=True)
+
             # fill missing value with 0 value
             df.fillna(0, inplace=True)
 
