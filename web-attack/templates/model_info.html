@@ -17,6 +17,15 @@
                     {% endfor %}
                 </ul>
 
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('static', filename='images/model_architecture.png') }}" data-lightbox="model-diagram" data-title="Model Architecture">
+                      <img src="{{ url_for('static', filename='images/model_architecture.png') }}"
+                           alt="Model Architecture Diagram"
+                           class="img-fluid rounded border shadow"
+                           style="max-height: 400px; cursor: zoom-in;">
+                    </a>
+                  </div>
+
                 <h4>Model Performance</h4>
                 <p><strong>Accuracy:</strong> {{ model.accuracy }}</p>
                 <p><strong>Loss Function:</strong> {{ model.loss_function }}</p>
