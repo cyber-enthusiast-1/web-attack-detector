@@ -7,8 +7,11 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <!-- Lightbox2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
+
   </head>
   <body>
 		
@@ -35,7 +38,7 @@
               <a href="{{url_for('model_info')}}">Model Info</a>
 	          </li>
 	          <li>
-              <a href="#">Threat Statistics Summary</a>
+              <a href="{{url_for('threat_summary')}}">Threat Summary</a>
 	          </li>
 	        </ul>
 
@@ -76,7 +79,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Home</a>
+                                <a class="nav-link" href="{{url_for('home')}}">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url_for('upload_data')}}">Upload Data</a>
@@ -85,7 +88,7 @@
                                 <a class="nav-link" href="{{url_for('model_info')}}">Model Info</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Threat Statistics Summary</a>
+                                <a class="nav-link" href="{{url_for('threat_summary')}}">Threat Statistics Summary</a>
                             </li>
                         </ul>
                     </div>
@@ -110,5 +113,7 @@
     <script src="{{url_for('static', filename='js/popper.js')}}"></script>
     <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <!-- Lightbox2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
   </body>
 </html>
