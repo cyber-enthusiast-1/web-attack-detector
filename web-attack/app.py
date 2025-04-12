@@ -45,7 +45,7 @@ def upload_data():
             file.save(filepath)
 
             # save the file path to session
-            session['last_upload'] = filepath
+            session['file_uploaded'] = filepath
             flash('File Uploaded Successfully!', 'success')
             return redirect(url_for('predict'))
 
@@ -56,7 +56,7 @@ def upload_data():
 
 @app.route('/predict')
 def predict():
-    filepath = session.get('last_updated')
+    filepath = session.get('file_uploaded')
 
     if not filepath or not os.path.exists(filepath):
         flash("No file uploaded. Please upload a file first.", "warning")
@@ -99,6 +99,15 @@ def predict():
     df['prediction'] = predicted_labels
     result_html = df[['prediction']].to_html(classes='table table-striped', index=False)
 
+    # save the file with predicted values
+    labeled_path = filepath.replace('.csv', '_labeled.csv')
+    df.to_csv(labeled_path, index=False)
+
+    # add the labeled data to session
+    session['labeled_data'] = labeled_path
+
+    flash('Prediction complete. View Threat Statistics Summary for Insights.', 'success')
+
     return render_template('predict.html', table=result_html)
 
 # route for model information
@@ -124,7 +133,7 @@ def model_info():
 @app.route('/threat-summary')
 def threat_summary():
     summary = dict()  # create an empty dictionary
-    filepath = session.get('last_uploaded')  # fetch the last file upload from session
+    filepath = session.get('labeled_data')  # fetch the last file upload from session
     bar_plot_div = ''
 
     if not filepath or not os.path.exists(filepath):
