@@ -4,11 +4,11 @@
 
 {% block content %}
 
-    <div class="container mt-5">
+    <div class="container mt-3">
         <h2 class="mt-2">Trained Model Information</h2>
         <hr>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-md-6">
                 <h4>Architecture</h4>
                 <ul>
@@ -17,27 +17,36 @@
                     {% endfor %}
                 </ul>
 
-                <div class="text-center mt-4">
-                    <a href="{{ url_for('static', filename='images/model_architecture.png') }}" data-lightbox="model-diagram" data-title="Model Architecture">
-                      <img src="{{ url_for('static', filename='images/model_architecture.png') }}"
+                <div class="text-center mt-2">
+                    <a href="{{ url_for('static', filename='images/web_attack_detector.keras.png') }}" data-lightbox="model-diagram" data-title="Model Architecture">
+                      <img src="{{ url_for('static', filename='images/web_attack_detector.keras.png') }}"
                            alt="Model Architecture Diagram"
                            class="img-fluid rounded border shadow"
-                           style="max-height: 400px; cursor: zoom-in;">
+                           style="max-height: 600px; cursor: zoom-in;">
                     </a>
                   </div>
 
-                <h4>Model Performance</h4>
+                <h4 class="mt-2">Model Performance</h4>
                 <p><strong>Accuracy:</strong> {{ model.accuracy }}</p>
                 <p><strong>Loss Function:</strong> {{ model.loss_function }}</p>
                 <p><strong>Optimizer:</strong> {{ model.optimizer }}</p>
             </div>
 
             <div class="col-md-6">
-                <h4>Preprocessing</h4>
+                
+                <h4>Training Performance</h5>
+                <a href="{{ url_for('static', filename='images/accuracy_loss.png') }}" data-lightbox="training-plot" data-title="Model Accuracy & Loss">
+                    <img src="{{ url_for('static', filename='images/accuracy_loss.png') }}"
+                        alt="Accuracy and Loss Plot"
+                        class="img-fluid rounded border shadow"
+                        style="max-height: 400px; cursor: zoom-in;">
+                </a>
+                  
+                <h4 mt-2>Preprocessing</h4>
                 <p><strong>Scaling:</strong> {{ model.scaling }}</p>
                 <p><strong>Principal Component Analysis:</strong> {{ model.pca_components }}</p>
 
-                <h4>Classes</h4>
+                <h4 mt-2>Classes</h4>
                 <ul>
                 {% for label in model.output_classes %}
                     <li>{{ label }}</li>
