@@ -4,23 +4,25 @@
 {% block title %}Home - SOC Dashboard{% endblock %}
 
 {% block content %}
-<section class="container py-5">
+<section class="container mt-3">
     <div class="row align-items-center">
+        <h2 class="mt-2">Cyber Threat Detection Dashboard</h2>
         <div class="col-md-6">
-            <h1 class="display-4 mb-3">Cyber Threat Detection Dashboard</h1>
+            
             <p class="lead">
                 Monitor, analyze, and predict network threats using a machine learning model trained on real-world web attack data.
             </p>
             <ul class="list-unstyled mt-4">
                 <li><i class="fa fa-upload text-success mr-2"></i> Upload Network Traffic Data</li>
                 <li><i class="fa fa-microchip text-info mr-2"></i> Get Model Predictions</li>
-                <li><i class="fa fa-chart-bar text-warning mr-2"></i> View Threat Summary Statistics</li>
+                <li><i class="fa fa-bar-chart text-warning mr-2"></i> View Threat Summary Statistics</li>
                 <!-- <li><i class="fa fa-bolt text-danger mr-2"></i> Real-time Threat Monitoring</li> -->
             </ul>
             <a href="{{ url_for('upload_data') }}" class="btn btn-primary mt-4">Get Started</a>
         </div>
         <div class="col-md-6 text-center">
-            <img src="{{ url_for('static', filename='images/home-illustration.png') }}" class="img-fluid" alt="Cyber Monitoring">
+            <!-- the image has been sourced from https://community.nasscom.in/communities/cyber-security-privacy/transformative-impact-ai-cybersecurity-practices -->
+            <img src="{{ url_for('static', filename='images/ai_cyber_security.png') }}" class="img-fluid" style="border-radius: 5px;" alt="Cyber Monitoring">
         </div>
     </div>
 </section>
