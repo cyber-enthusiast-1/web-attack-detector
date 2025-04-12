@@ -27,12 +27,12 @@
                   background-color: white; 
                   background-image: url({{url_for('static', filename='images/logo.png')}});"></a>
 	        <ul class="list-unstyled components mb-5">
-	          <li class="active">
-	            <a href="{{url_for('home')}}">Home</a>
-	            
-	          </li>
+	          
 	          <li>
                 <a href="{{url_for('upload_data')}}">Upload Data</a>
+	          </li>
+              <li>
+                <a href="{{url_for('predict')}}">Predict</a>
 	          </li>
 	          <li>
               <a href="{{url_for('model_info')}}">Model Info</a>
@@ -78,17 +78,18 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{url_for('home')}}">Home</a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url_for('upload_data')}}">Upload Data</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('predict')}}">Predict</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url_for('model_info')}}">Model Info</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url_for('threat_summary')}}">Threat Statistics Summary</a>
+                                <a class="nav-link" href="{{url_for('threat_summary')}}">Threat Summary</a>
                             </li>
                         </ul>
                     </div>
