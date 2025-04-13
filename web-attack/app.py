@@ -16,7 +16,7 @@ UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # load the deep learning model
-model = load_model('models/web-attack-detector.keras')
+model = load_model('models/web-attack.keras')
 
 # load the scaler
 scaler = joblib.load('models/scaler.pkl')
@@ -140,7 +140,7 @@ def model_info():
             "Long-Short Term Memory layers",
             "Dense output (4 classes)"
         ],
-        "accuracy": "78.51%",
+        "accuracy": "81.81%",
         "loss_function": "sparse_categorical_crossentropy",
         "optimizer": "adam",
         "output_classes": ["Benign", "Web Attack - Brute Force", "Web Attack - XSS", "Web Attack - SQL Injection"],
