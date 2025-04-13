@@ -5,6 +5,12 @@
 {% block content %}
     <div class="card upload-card p-4">
         <h4 class="mb-3 text-center">Upload Network Data</h4>
+       
+        <div class="alert alert-info mt-2" role="alert">
+            💡 <strong>Tip:</strong> Please upload <strong>unlabeled</strong> network traffic data. 
+            Make sure the dataset does <strong>not contain any label or class column</strong> such as "Benign", "Web attack - XSS", "Web Attack - Brute Force", or "Web Attack -SQL Injection".
+        </div>
+
         <form action="{{ url_for('upload_data') }}" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="file" class="form-label">Select a CSV file</label>
@@ -14,7 +20,6 @@
                 <button type="submit" class="btn btn-primary">Upload</button>
             </div>
         </form>
-
         <p class="mt-3">
             Don't have a sample? <a href="{{ url_for('static', filename='template.csv') }}" class="btn btn-outline-secondary btn-sm">Download Template</a>
         </p>
