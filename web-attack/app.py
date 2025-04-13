@@ -16,7 +16,7 @@ UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # load the deep learning model
-model = load_model('models/web_attack_detection_neural_network.keras')
+model = load_model('models/web-attack-detector.keras')
 
 # load the scaler
 scaler = joblib.load('models/scaler.pkl')
@@ -44,15 +44,30 @@ def upload_data():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(filepath)
 
+            # read the file
+            df = pd.read_csv(filepath)
+
+            session['filename'] = file.filename
+            session['rows'] = df.shape[0]
+            session['cols'] = df.shape[1]
+
             # save the file path to session
             session['file_uploaded'] = filepath
-            flash('File Uploaded Successfully!', 'success')
-            return redirect(url_for('predict'))
+            # flash('File Uploaded Successfully!', 'success')
+            return redirect(url_for('upload_success'))
 
         flash('Please upload a valid CSV file', 'danger')
         return redirect(request.url)
     
     return render_template('upload.html')
+
+@app.route('/upload-success')
+def upload_success():
+    filename = session.get('filename')
+    rows = session.get('rows', 0)
+    cols = session.get('cols',0)
+
+    return render_template('upload_success.html', filename=filename, rows=rows, cols=cols)
 
 @app.route('/predict')
 def predict():
@@ -65,6 +80,10 @@ def predict():
     # read the data
     df = pd.read_csv(filepath)
     expected_columns = list(pd.read_csv('static/template.csv').columns)
+    # print(f'expected_columns: {expected_columns}')
+    # df.columns = expected_columns
+    # print(f'data columns: {df.columns}')
+    
 
     # rename the columns to match columns in training and for consistency
     df.rename(columns=rename_column)
@@ -87,8 +106,8 @@ def predict():
     # transform and reshape data
     X_scaled = scaler.transform(df)
     X_pca = pca.transform(X_scaled)
-    X_lstm = np.reshape(X_pca.shape[0], X_pca.shape[1], 1)
-
+    X_lstm = X_pca.reshape((X_pca.shape[0], X_pca.shape[1], 1))
+    
     # predict
     label_predictions = model.predict(X_lstm)
     predicted_classes = np.argmax(label_predictions, axis=1)
@@ -121,7 +140,7 @@ def model_info():
             "Long-Short Term Memory layers",
             "Dense output (4 classes)"
         ],
-        "accuracy": "98.72%",
+        "accuracy": "78.51%",
         "loss_function": "sparse_categorical_crossentropy",
         "optimizer": "adam",
         "output_classes": ["Benign", "Web Attack - Brute Force", "Web Attack - XSS", "Web Attack - SQL Injection"],
