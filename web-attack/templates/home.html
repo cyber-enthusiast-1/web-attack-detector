@@ -4,32 +4,64 @@
 {% block title %}Home - SOC Dashboard{% endblock %}
 
 {% block content %}
-<section class="container mt-3">
-    <div class="row align-items-center">
-        <h2 class="mt-2">Cyber Threat Detection Dashboard</h2>
-        <div class="col-md-6">
-            
-            <p class="lead">
-                Monitor, analyze, and predict network threats using a machine learning model trained on real-world web attack data.
-            </p>
-            <ul class="list-unstyled mt-4">
-                <li><i class="fa fa-upload text-success mr-2"></i> Upload Network Traffic Data</li>
-                <li><i class="fa fa-microchip text-info mr-2"></i> Get Model Predictions</li>
-                <li><i class="fa fa-bar-chart text-warning mr-2"></i> View Threat Summary Statistics</li>
-                <!-- <li><i class="fa fa-bolt text-danger mr-2"></i> Real-time Threat Monitoring</li> -->
-            </ul>
-            <a href="{{ url_for('upload_data') }}" class="btn btn-primary mt-4">Get Started</a>
+
+    <section class="hero bg-light p-1 text-center">
+        <div class="container">
+            <h2 class="mt-2">Cyber Threat Detection Dashboard</h1>
+            <p class="lead">Monitor and detect malicious web traffic including Brute Force, XSS, and SQL Injection attacks in real time.</p>
         </div>
-        <div class="col-md-6 text-center">
-            <!-- the image has been sourced from https://digitalmahbub.com/ai-in-cyber-security/ -->
-            
-            <figure>
-                <img src="{{ url_for('static', filename='images/cyber-security.jpg') }}" class="img-fluid" style="border-radius: 5px;" alt="Cyber Monitoring">
-                <figcaption class="text-muted mt-2" style="font-size: 0.9rem;">
-                    Sourced from <a href="https://digitalmahbub.com/ai-in-cyber-security/" target="_blank">Digital Mahbub</a>
-                </figcaption>
-            </figure>
+    </section>
+
+    <section class="features container py-5">
+        <div class="row text-center">
+            <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                <i class="fa fa-shield fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Benign Traffic</h5>
+                <p class="card-text">Recognize safe traffic that doesn't pose any security risk.</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                <i class="fa fa-user-secret fa-3x text-danger mb-3"></i>
+                <h5 class="card-title">Brute Force Attacks</h5>
+                <p class="card-text">Identify login-based brute force attempts to gain unauthorized access.</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                <i class="fa fa-code fa-3x text-warning mb-3"></i>
+                <h5 class="card-title">XSS Attacks</h5>
+                <p class="card-text">Detect script-based cross-site injection attempts.</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                <i class="fa fa-database fa-3x text-success mb-3"></i>
+                <h5 class="card-title">SQL Injection</h5>
+                <p class="card-text">Spot and prevent SQL queries injected into form inputs or URLs.</p>
+                </div>
+            </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="cta text-center bg-info text-white py-5" style="border-radius: 5px;">
+        <div class="container">
+            <h2 class="mb-3">Start Monitoring Your Network</h2>
+            <p>Upload your network traffic data and visualize threats in seconds.</p>
+            <a href="{{ url_for('upload_data') }}" class="btn btn-light btn-lg mt-2">Upload Data</a>
+        </div>
+    </section>
+
 {% endblock %}
