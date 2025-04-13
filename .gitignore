@@ -179,4 +179,7 @@ web-attack/models/
 # Ignore the virtual-environment
 intrusion/
 
+# ignore file uploads
+web-attack/static/uploads
+
 
