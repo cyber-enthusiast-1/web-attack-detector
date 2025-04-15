@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, session
 import os
 from tensorflow.keras.models import load_model
+from dotenv import load_dotenv
 import joblib
 import pandas as pd
 import numpy as np
@@ -9,9 +10,17 @@ import plotly.graph_objs as go
 import plotly.io as pio
 
 
+# load the environment variables from .env
+load_dotenv()
+
 
 app = Flask(__name__)
-app.secret_key = '12345678908765432fdcb'
+app.secret_key = os.getenv('SECRET_KEY')
+
+MODEL_PATH = os.getenv('MODEL_PATH')
+PCA_PATH = os.getenv('PCA_PATH')
+SCALER_PATH = os.getenv('SCALER_PATH')
+
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
