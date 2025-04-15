@@ -173,13 +173,11 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Ignore the Neural network model folder
-web-attack/models/
-
 # Ignore the virtual-environment
 intrusion/
 
 # ignore file uploads
 web-attack/static/uploads
 
-
+# Ignore the environment variables
+.env
