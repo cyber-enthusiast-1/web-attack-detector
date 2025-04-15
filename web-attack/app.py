@@ -1,6 +1,9 @@
 """Web Attack (Threat) Detection System using ML""" 
 from flask import Flask, render_template, request, url_for, redirect, flash, session
 import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # '2' = Filter INFO and WARNING logs
+
 from tensorflow.keras.models import load_model
 from dotenv import load_dotenv
 import joblib
