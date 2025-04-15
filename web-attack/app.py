@@ -27,6 +27,9 @@ SCALER_PATH = os.getenv('SCALER_PATH')
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+if not MODEL_PATH:
+    raise ValueError("MODEL_PATH environment variable not set!")
+
 # load the deep learning model
 model = load_model(MODEL_PATH)
 
@@ -53,7 +56,8 @@ def upload_data():
             return redirect(request.url)
         
         if file.filename.endswith('.csv'):
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            tmp_dir = '/tmp'
+            filepath = os.path.join(tmp_dir, file.filename)
             file.save(filepath)
 
             # read the file
