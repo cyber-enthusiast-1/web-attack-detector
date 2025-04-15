@@ -25,13 +25,13 @@ UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # load the deep learning model
-model = load_model('models/web-attack.keras')
+model = load_model(MODEL_PATH)
 
 # load the scaler
-scaler = joblib.load('models/scaler.pkl')
+scaler = joblib.load(SCALER_PATH)
 
 # load the Principal Component Analysis object
-pca = joblib.load('models/pca.pkl')
+pca = joblib.load(PCA_PATH)
 
 # define a function to remove starting space and the columns consistent
 def rename_column(column):
