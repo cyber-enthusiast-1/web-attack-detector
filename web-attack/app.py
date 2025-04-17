@@ -158,7 +158,7 @@ def model_info():
     model_details = {
         "architecture": [
             "Input → 78 features → StandardScaler",
-            "Principal Component Analysis → 20tw features",
+            "Principal Component Analysis → 20 features",
             "Long-Short Term Memory layers",
             "Dense output (4 classes)"
         ],
@@ -207,4 +207,4 @@ def threat_summary():
     return render_template('threat.html', summary=summary, bar_plot_div=bar_plot_div)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
