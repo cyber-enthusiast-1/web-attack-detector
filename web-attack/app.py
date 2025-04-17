@@ -56,8 +56,8 @@ def upload_data():
             return redirect(request.url)
         
         if file.filename.endswith('.csv'):
-            tmp_dir = '/tmp'
-            filepath = os.path.join(tmp_dir, file.filename)
+            # tmp_dir = '/tmp'
+            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(filepath)
 
             # read the file
@@ -102,7 +102,9 @@ def predict():
     
 
     # rename the columns to match columns in training and for consistency
-    df.rename(columns=rename_column)
+    df = df.rename(columns=rename_column)
+
+    print(f'columns: {df.columns[:5]}')
 
     # replace infinite value with NaN value
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
@@ -201,4 +203,4 @@ def threat_summary():
     return render_template('threat.html', summary=summary, bar_plot_div=bar_plot_div)
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
