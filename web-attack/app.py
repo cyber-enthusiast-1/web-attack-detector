@@ -1,6 +1,6 @@
 """Web Attack (Threat) Detection System using ML""" 
 from flask import Flask, render_template, request, url_for, redirect, flash, session
-import os
+import os, psutil
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # '2' = Filter INFO and WARNING logs
 
@@ -56,8 +56,8 @@ def upload_data():
             return redirect(request.url)
         
         if file.filename.endswith('.csv'):
-            tmp_dir = '/tmp'
-            filepath = os.path.join(tmp_dir, file.filename)
+            # tmp_dir = '/tmp'
+            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(filepath)
 
             # read the file
@@ -92,6 +92,9 @@ def predict():
     if not filepath or not os.path.exists(filepath):
         flash("No file uploaded. Please upload a file first.", "warning")
         return redirect(url_for('upload_data'))
+
+    process = psutil.Process(os.getpid())
+    print(f"Memory usage: {process.memory_info().rss / 1024 ** 2:.2f} MB")
 
     # read the data
     df = pd.read_csv(filepath)
@@ -141,6 +144,9 @@ def predict():
     # add the labeled data to session
     session['labeled_data'] = labeled_path
 
+    process = psutil.Process(os.getpid())
+    print(f"Memory usage: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+
     flash('Prediction complete. View Threat Statistics Summary for Insights.', 'success')
 
     return render_template('predict.html', table=result_html)
@@ -152,7 +158,7 @@ def model_info():
     model_details = {
         "architecture": [
             "Input → 78 features → StandardScaler",
-            "Principal Component Analysis → 22 features",
+            "Principal Component Analysis → 20tw features",
             "Long-Short Term Memory layers",
             "Dense output (4 classes)"
         ],
