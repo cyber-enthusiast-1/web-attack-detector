@@ -1,6 +1,6 @@
 """Web Attack (Threat) Detection System using ML""" 
 from flask import Flask, render_template, request, url_for, redirect, flash, session
-import os, psutil
+import os
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # '2' = Filter INFO and WARNING logs
 
@@ -56,8 +56,8 @@ def upload_data():
             return redirect(request.url)
         
         if file.filename.endswith('.csv'):
-            # tmp_dir = '/tmp'
-            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+            tmp_dir = '/tmp'
+            filepath = os.path.join(tmp_dir, file.filename)
             file.save(filepath)
 
             # read the file
@@ -92,9 +92,6 @@ def predict():
     if not filepath or not os.path.exists(filepath):
         flash("No file uploaded. Please upload a file first.", "warning")
         return redirect(url_for('upload_data'))
-
-    process = psutil.Process(os.getpid())
-    print(f"Memory usage: {process.memory_info().rss / 1024 ** 2:.2f} MB")
 
     # read the data
     df = pd.read_csv(filepath)
@@ -144,9 +141,6 @@ def predict():
     # add the labeled data to session
     session['labeled_data'] = labeled_path
 
-    process = psutil.Process(os.getpid())
-    print(f"Memory usage: {process.memory_info().rss / 1024 ** 2:.2f} MB")
-
     flash('Prediction complete. View Threat Statistics Summary for Insights.', 'success')
 
     return render_template('predict.html', table=result_html)
@@ -166,7 +160,7 @@ def model_info():
         "loss_function": "sparse_categorical_crossentropy",
         "optimizer": "adam",
         "output_classes": ["Benign", "Web Attack - Brute Force", "Web Attack - XSS", "Web Attack - SQL Injection"],
-        "pca_components": 22,
+        "pca_components": 20,
         "scaling": "StandardScaler"
     }
     return render_template('model_info.html', model=model_details)
