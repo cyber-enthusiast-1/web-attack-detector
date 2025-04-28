@@ -56,8 +56,8 @@ def upload_data():
             return redirect(request.url)
         
         if file.filename.endswith('.csv'):
-            # tmp_dir = '/tmp'
-            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+            tmp_dir = '/tmp'
+            filepath = os.path.join(tmp_dir, file.filename)
             file.save(filepath)
 
             # read the file
