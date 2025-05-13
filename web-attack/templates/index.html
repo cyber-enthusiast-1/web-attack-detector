@@ -14,20 +14,34 @@
     <!-- Lightbox2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
 
+    <style>
+        .logo-container {
+          width: 200px;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+        }
+        .logo {
+          max-width: 200px;
+          max-height: 50px;
+          width: auto;
+          height: auto;
+          display: block;
+          border-radius: 30px;
+        }
+      </style>
+
   </head>
   <body>
 		
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
-		  		<a href="{{url_for('home')}}" class="img logo rounded-circle mb-5" style="background-size: cover; 
-                  background-position: center; 
-                  background-repeat: no-repeat; 
-                  width: 100px; 
-                  height: 100px; 
-                  display: block; 
-                  background-color: white; 
-                  background-image: url({{url_for('static', filename='images/logo.png')}});"></a>
+                    <div class="logo-container mb-3" aria-label="Company Logo">
+                        <img src="{{url_for('static', filename='images/school-logo.jpg')}}" alt="Company Logo" class="logo" />
+                      </div>
 	        <ul class="list-unstyled components mb-5">
                 <li>
                     <a href="{{url_for('home')}}">Home</a>
@@ -44,6 +58,9 @@
 	          <li>
               <a href="{{url_for('model_info')}}">Model Info</a>
 	          </li>
+              <li>
+                <a href="{{url_for('contact_info')}}">Contact Us</a>
+                </li>
 	        </ul>
 
 	        <div class="footer">
@@ -96,6 +113,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url_for('model_info')}}">Model Info</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('contact_info')}}">Contact Us</a>
                             </li>
                         </ul>
                     </div>
