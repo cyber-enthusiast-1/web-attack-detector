@@ -43,6 +43,9 @@ pca = joblib.load(PCA_PATH)
 def rename_column(column):
   return column.strip().lower().replace(' ', '_')
 
+
+# the main route of the system 
+
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -56,8 +59,8 @@ def upload_data():
             return redirect(request.url)
         
         if file.filename.endswith('.csv'):
-            tmp_dir = '/tmp'
-            filepath = os.path.join(tmp_dir, file.filename)
+            # tmp_dir = '/tmp'
+            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(filepath)
 
             # read the file
@@ -95,7 +98,7 @@ def predict():
 
     # read the data
     df = pd.read_csv(filepath)
-    expected_columns = list(pd.read_csv('static/template.csv').columns)
+    # expected_columns = list(pd.read_csv('static/template.csv').columns)
     # print(f'expected_columns: {expected_columns}')
     # df.columns = expected_columns
     # print(f'data columns: {df.columns}')
@@ -114,12 +117,12 @@ def predict():
         df.drop('label', axis=1, inplace=True)
     
     # check for missing columns
-    missing = [col for col in expected_columns if col not in df.columns]
-    if missing:
-        flash(f'Missing columns: {missing[:3]} and others. Please follow the template.', 'danger')
-        return redirect(url_for('upload_data'))
+    # missing = [col for col in expected_columns if col not in df.columns]
+    # if missing:
+    #     flash(f'Missing columns: {missing[:3]} and others. Please follow the template.', 'danger')
+    #     return redirect(url_for('upload_data'))
 
-    df = df[expected_columns] # index out the required columns
+    # df = df[expected_columns] # index out the required columns
     
     # transform and reshape data
     X_scaled = scaler.transform(df)
@@ -201,6 +204,10 @@ def threat_summary():
     bar_plot_div = pio.to_html(fig, full_html=False)
 
     return render_template('threat.html', summary=summary, bar_plot_div=bar_plot_div)
+
+@app.route('/contact')
+def contact_info():
+    return render_template('contact.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
