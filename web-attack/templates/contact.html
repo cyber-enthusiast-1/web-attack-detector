@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+{% block title %} Contact {%endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Contact Team</h2>
+        <div class="row justify-content-center">
+        
+        <div class="col-md-5 text-center mb-4">
+            <div class="card shadow p-3">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" 
+                class="rounded-circle mb-3 mx-auto d-block" alt="Hussain Safar" 
+                style="width: 150px; height: 150px; object-fit: cover;">
+            <h4>Hussain Safar</h4>
+            </div>
+        </div>
+    
+        
+        <div class="col-md-5 text-center mb-4">
+            <div class="card shadow p-3">
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" 
+                class="rounded-circle mb-3 mx-auto d-block" alt="Hamad Alhilal" 
+                style="width: 150px; height: 150px; object-fit: cover;">
+            <h4>Hamad Alhilal</h4>
+            
+            </div>
+        </div>
+        </div>
+        <p class="text-center">Email: threat.detection.system@gmail.com</p>
+    </div>
+{% endblock %}
